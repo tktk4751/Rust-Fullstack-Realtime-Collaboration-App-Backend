@@ -6,6 +6,8 @@ mod controllers;
 mod models;
 mod routes;
 mod utils;
+pub mod schema;
+
 
 fn main() -> std::io::Result<()> {
     dotenv::dotenv().ok();
@@ -21,6 +23,8 @@ fn main() -> std::io::Result<()> {
             .data(pool.clone())
             .wrap(middleware::Logger::default())
             .configure(routes::configure)
+            .configure(auth_routes::auth_routes)
+            .configure(task_routes::task_routes)
     })
     .bind(&bind_address)?
     .run()

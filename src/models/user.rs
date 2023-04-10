@@ -1,9 +1,11 @@
 use chrono::{DateTime, Utc};
+use diesel::{Insertable, Queryable};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-#[derive(Debug, Serialize, Deserialize, Queryable, Insertable)]
-#[table_name = "users"]
+use crate::schema::users;
+
+#[derive(Debug, Serialize, Deserialize, Queryable)]
 pub struct User {
     pub id: Uuid,
     pub email: String,
@@ -12,7 +14,8 @@ pub struct User {
     pub updated_at: DateTime<Utc>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
+#[table_name = "users"]
 pub struct NewUser {
     pub email: String,
     pub password: String,
