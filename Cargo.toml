@@ -1,0 +1,27 @@
+[package]
+name = "rust-slack"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-web = { version = "4.0.0-beta.8", features = ["rustls"] }
+actix-rt = "2.2.0"
+actix-cors = "0.6.0"
+serde_json = "1.0.64"
+tokio = "1.10.0"
+async-graphql = "5.0.7"
+async-graphql-actix-web = "5.0.7"
+dotenv = "0.15.0"
+jsonwebtoken = "8.3.0"
+argon2 = "0.5.0"
+diesel = { version = "2.0.3", features = ["postgres", "uuid", "chrono", "serde_json", "r2d2"] }
+
+[dependencies.chrono]
+version = "0.4"
+features = ["serde"]
+
+[dependencies.uuid]
+version = "1.3.1"
+features = ["serde", "v4"]
