@@ -3,16 +3,16 @@ use dotenv::dotenv;
 use env_logger;
 
 use config::db::create_db_pool;
+use middleware::auth_middleware::Authentication;
 
 mod config;
 mod handlers;
 mod middleware;
 mod models;
-mod routes;
+mod routers; // ここをroutesからroutersに変更
 mod utils;
 
 pub mod schema;
-
 
 fn main() -> std::io::Result<()> {
     dotenv().ok();
@@ -27,11 +27,12 @@ fn main() -> std::io::Result<()> {
         App::new()
             .data(pool.clone())
             .wrap(middleware::Logger::default())
-            .configure(routes::auth_routes::configure)
-            .configure(routes::invitation_routes::configure)
-            .configure(routes::message_routes::configure)
-            .configure(routes::project_routes::configure)
-            .configure(routes::task_routes::configure)
+            .wrap(Authentication) // Authenticationミドルウェアを追加
+            .configure(routers::auth::init_routes)
+            .configure(routers::invitation::init_routes)
+            .configure(routers::message::init_routes) // ここをroutesからroutersに変更
+            .configure(routers::project::init_routes)
+            .configure(routers::task::init_routes)
     })
     .bind(&bind_address)?
     .run()

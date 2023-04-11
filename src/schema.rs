@@ -26,7 +26,7 @@ diesel::table! {
     projects (id) {
         id -> Int4,
         name -> Varchar,
-        owner_id -> Int4,
+        owner_id -> Uuid,
         created_at -> Timestamptz,
         updated_at -> Timestamptz,
     }
@@ -38,7 +38,7 @@ diesel::table! {
         title -> Varchar,
         description -> Nullable<Text>,
         project_id -> Int4,
-        assignee_id -> Nullable<Int4>,
+        assignee_id -> Nullable<Uuid>,
         due_date -> Nullable<Date>,
         status -> Varchar,
         created_at -> Timestamptz,
@@ -48,12 +48,12 @@ diesel::table! {
 
 diesel::table! {
     users (id) {
-        id -> Int4,
+        id -> Uuid,
         email -> Varchar,
         password -> Varchar,
-        password_hash -> Varchar,
         created_at -> Timestamptz,
         updated_at -> Timestamptz,
+        username -> Nullable<Varchar>,
     }
 }
 

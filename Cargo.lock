@@ -820,8 +820,17 @@ dependencies = [
  "itoa",
  "pq-sys",
  "r2d2",
- "serde_json",
  "uuid",
+]
+
+[[package]]
+name = "diesel_cli_ext"
+version = "0.3.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "54ad82909e819aa26ca8839deb149a6c5f7c77bee4e525ec14275777555945c0"
+dependencies = [
+ "getopts",
+ "toml",
 ]
 
 [[package]]
@@ -989,6 +998,15 @@ checksum = "85649ca51fd72272d7821adaf274ad91c288277713d9c18820d8499a7ff69e9a"
 dependencies = [
  "typenum",
  "version_check",
+]
+
+[[package]]
+name = "getopts"
+version = "0.2.21"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "14dbbfd5c71d70241ecf9e6f13737f7b5ce823821063188d7e46c41d371eebd5"
+dependencies = [
+ "unicode-width",
 ]
 
 [[package]]
@@ -1642,6 +1660,7 @@ dependencies = [
  "async-graphql-actix-web",
  "chrono",
  "diesel",
+ "diesel_cli_ext",
  "diesel_derives",
  "dotenv",
  "jsonwebtoken",
@@ -2027,6 +2046,15 @@ dependencies = [
  "pin-project-lite",
  "tokio",
  "tracing",
+]
+
+[[package]]
+name = "toml"
+version = "0.5.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f4f7f0dd8d50a853a531c426359045b1998f04219d88799810762cd4ad314234"
+dependencies = [
+ "serde",
 ]
 
 [[package]]

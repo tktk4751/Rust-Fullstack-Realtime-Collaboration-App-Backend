@@ -1,8 +1,8 @@
 use actix_web::{delete, get, patch, post, web, HttpResponse, Result};
 use serde::{Deserialize, Serialize};
-
-use crate::models::Invitation;
-use crate::utils::db_operations;
+use uuid::Uuid;
+// use crate::models::Invitation;
+use crate::models::invitation::{create_invitation, get_invitation, update_invitation, delete_invitation};
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct CreateInvitationData {
