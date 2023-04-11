@@ -5,6 +5,7 @@ use uuid::Uuid;
 
 use crate::schema::users;
 
+
 #[derive(Debug, Serialize, Deserialize, Queryable)]
 pub struct User {
     pub id: Uuid,
@@ -16,6 +17,8 @@ pub struct User {
 
 #[derive(Debug, Serialize, Deserialize, Insertable)]
 #[table_name = "users"]
+
+
 pub struct NewUser {
     pub email: String,
     pub password: String,

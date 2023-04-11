@@ -1,24 +1,21 @@
-use chrono::NaiveDateTime;
-use diesel::prelude::*;
+use chrono::{DateTime, Utc};
+use diesel::{Insertable, Queryable};
 use serde::{Deserialize, Serialize};
-use uuid::Uuid;
 
 use crate::schema::projects;
 
-#[derive(Queryable, Identifiable, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Queryable)]
 pub struct Project {
-    pub id: Uuid,
+    pub id: i32,
     pub name: String,
-    pub description: Option<String>,
-    pub owner_id: Uuid,
-    pub created_at: NaiveDateTime,
-    pub updated_at: NaiveDateTime,
+    pub owner_id: i32,
+    pub created_at: DateTime<Utc>,
+    pub updated_at: DateTime<Utc>,
 }
 
-#[derive(Insertable, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
 #[table_name = "projects"]
-pub struct NewProject<'a> {
-    pub name: &'a str,
-    pub description: Option<&'a str>,
-    pub owner_id: Uuid,
+pub struct NewProject {
+    pub name: String,
+    pub owner_id: i32,
 }

@@ -1,16 +1,21 @@
-use config::db::create_db_pool;
 use actix_web::{middleware, web, App, HttpServer};
+use dotenv::dotenv;
+use env_logger;
+
+use config::db::create_db_pool;
 
 mod config;
-mod controllers;
+mod handlers;
+mod middleware;
 mod models;
 mod routes;
 mod utils;
+
 pub mod schema;
 
 
 fn main() -> std::io::Result<()> {
-    dotenv::dotenv().ok();
+    dotenv().ok();
     env_logger::init();
 
     let pool = create_db_pool();
@@ -22,9 +27,11 @@ fn main() -> std::io::Result<()> {
         App::new()
             .data(pool.clone())
             .wrap(middleware::Logger::default())
-            .configure(routes::configure)
-            .configure(auth_routes::auth_routes)
-            .configure(task_routes::task_routes)
+            .configure(routes::auth_routes::configure)
+            .configure(routes::invitation_routes::configure)
+            .configure(routes::message_routes::configure)
+            .configure(routes::project_routes::configure)
+            .configure(routes::task_routes::configure)
     })
     .bind(&bind_address)?
     .run()

@@ -1,31 +1,29 @@
-use chrono::NaiveDateTime;
-use diesel::prelude::*;
+use chrono::{DateTime, NaiveDate, Utc};
+use diesel::{Insertable, Queryable};
 use serde::{Deserialize, Serialize};
-use uuid::Uuid;
 
 use crate::schema::tasks;
 
-#[derive(Queryable, Identifiable, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Queryable)]
 pub struct Task {
-    pub id: Uuid,
+    pub id: i32,
     pub title: String,
     pub description: Option<String>,
-    pub project_id: Uuid,
-    pub creator_id: Uuid,
-    pub assignee_id: Option<Uuid>,
-    pub due_date: Option<NaiveDateTime>,
-    pub completed: bool,
-    pub created_at: NaiveDateTime,
-    pub updated_at: NaiveDateTime,
+    pub project_id: i32,
+    pub assignee_id: Option<i32>,
+    pub due_date: Option<NaiveDate>,
+    pub status: String,
+    pub created_at: DateTime<Utc>,
+    pub updated_at: DateTime<Utc>,
 }
 
-#[derive(Insertable, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Insertable)]
 #[table_name = "tasks"]
-pub struct NewTask<'a> {
-    pub title: &'a str,
-    pub description: Option<&'a str>,
-    pub project_id: Uuid,
-    pub creator_id: Uuid,
-    pub assignee_id: Option<Uuid>,
-    pub due_date: Option<NaiveDateTime>,
+pub struct NewTask {
+    pub title: String,
+    pub description: Option<String>,
+    pub project_id: i32,
+    pub assignee_id: Option<i32>,
+    pub due_date: Option<NaiveDate>,
+    pub status: String,
 }
